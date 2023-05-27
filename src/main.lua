@@ -1,8 +1,8 @@
-
 local speed = 3;
 local rotspeed = math.rad(3)
 
 local swidth, sheight
+local level;
 
 local plr = {
 	x = 0,
@@ -12,9 +12,11 @@ local plr = {
 
 function love.load()
 	swidth, sheight = love.graphics.getDimensions();
-	
 	love.window.setTitle("Fun");
 	love.graphics.setBackgroundColor(0,0,0)
+
+	level = require("level")
+	level = type(level) == "table" and level or level(swidth, sheight)
 end
 
 function love.update()
@@ -37,9 +39,14 @@ function love.draw()
 	love.graphics.setColor(255,255,255)
 	love.graphics.print(plr.x.." "..plr.y,0,0)
 	
+	love.graphics.setColor(0,255,0)
+	for i,v in ipairs(level) do
+		love.graphics.line(v.x1, v.x2, v.y1, v.y2)
+	end
+
 	love.graphics.setColor(255,0,0)
 	love.graphics.circle("fill",plr.x,plr.y,5)
-	
+
 	love.graphics.line(plr.x, plr.y,
 		plr.x + 30 * math.cos(plr.angle),
 		plr.y + 30 * math.sin(plr.angle))

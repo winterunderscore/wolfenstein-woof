@@ -2,4 +2,4 @@ LOVE = love
 SRC = src
 
 run:
-	$(LOVE) $(SRC)
+	$(LOVE) $(SRC) --console
